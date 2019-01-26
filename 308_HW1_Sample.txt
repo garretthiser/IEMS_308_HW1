@@ -1,0 +1,175 @@
+# K-Means Cluster Analysis
+> fit <- kmeans(mydata, 6) # 6 cluster solution
+> # get cluster means 
+> aggregate(mydata,by=list(fit$cluster),FUN=mean)
+  Group.1 AVERAGE_MEDICARE_STANDARD_AMT   ENTITY_I   ENTITY_O   GENDER_M
+1       1                     0.2096748  0.1926504 -0.1926504  0.7350160
+2       2                    -0.8037188  0.1926504 -0.1926504 -1.3603782
+3       3                     0.8592644  0.1926504 -0.1926504 -1.3603782
+4       4                     0.2402219  0.1926504 -0.1926504 -1.3603782
+5       5                    -0.0583098  0.1926504 -0.1926504  0.7350160
+6       6                    -0.8360808 -3.0208745  3.0208745 -0.7752096
+    GENDER_F PLACE_OF_SERVICE_OFF PLACE_OF_SERVICE_FAC MEDICARE_PAR_YES
+1 -0.6780717           -1.1895850            1.2543411        0.1622884
+2  1.4746225            0.8405451           -0.7971514        0.1622884
+3  1.4746225            0.8405451           -0.7971514        0.1622884
+4  1.4746225           -1.1895850            1.2543411        0.1622884
+5 -0.6780717            0.8405451           -0.7971514        0.1622884
+6 -0.4116848           -0.3204992           -0.4952595       -2.5447795
+  MEDICARE_PAR_NO fit.cluster
+1      -0.1622884    2.000000
+2      -0.1622884    4.000000
+3      -0.1622884    4.000000
+4      -0.1622884    3.000000
+5      -0.1622884    1.000000
+6       2.5447795    5.571906
+> # append cluster assignment
+> mydata <- data.frame(mydata, fit$cluster)
+> 
+> datproc$fit.cluster <- mydata$fit.cluster 
+> 
+> clusplot(mydata, fit$cluster, color=TRUE, shade=TRUE, 
++    labels=2, lines=0)
+> 
+> 
+> cluster1 <- datproc[datproc$fit.cluster == "1",]
+> cluster2 <- datproc[datproc$fit.cluster == "2",]
+> cluster3 <- datproc[datproc$fit.cluster == "3",]
+> cluster4 <- datproc[datproc$fit.cluster == "4",]
+> cluster5 <- datproc[datproc$fit.cluster == "5",]
+> cluster6 <- datproc[datproc$fit.cluster == "6",]
+> 
+> #whole subset
+> mean(datproc$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 34520.86
+> sd(datproc$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 21419.56
+> sum(datproc$GENDER_M)/nrow(datproc)
+[1] 0.6492231
+> sum(datproc$PLACE_OF_SERVICE_OFF)/nrow(datproc)
+[1] 0.5859649
+> sum(datproc$MEDICARE_PAR_YES)/nrow(datproc)
+[1] 0.9743358
+> sum(datproc$ENTITY_I)/nrow(datproc)
+[1] 0.9642105
+> 
+> #cluster 1
+> mean(cluster1$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 33271.89
+> sd(cluster1$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 20737.28
+> sum(cluster1$GENDER_M)/nrow(cluster1)
+[1] 1
+> sum(cluster1$PLACE_OF_SERVICE_OFF)/nrow(cluster1)
+[1] 1
+> sum(cluster1$MEDICARE_PAR_YES)/nrow(cluster1)
+[1] 1
+> sum(cluster1$ENTITY_I)/nrow(cluster1)
+[1] 1
+> 
+> #cluster 2
+> mean(cluster2$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 39012
+> sd(cluster2$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 21170.88
+> sum(cluster2$GENDER_M)/nrow(cluster2)
+[1] 1
+> sum(cluster2$PLACE_OF_SERVICE_OFF)/nrow(cluster2)
+[1] 0
+> sum(cluster2$MEDICARE_PAR_YES)/nrow(cluster2)
+[1] 1
+> sum(cluster2$ENTITY_I)/nrow(cluster2)
+[1] 1
+> 
+> #cluster 3
+> mean(cluster3$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 39666.31
+> sd(cluster3$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 21080.77
+> sum(cluster3$GENDER_M)/nrow(cluster3)
+[1] 0
+> sum(cluster3$PLACE_OF_SERVICE_OFF)/nrow(cluster3)
+[1] 0
+> sum(cluster3$MEDICARE_PAR_YES)/nrow(cluster3)
+[1] 1
+> sum(cluster3$ENTITY_I)/nrow(cluster3)
+[1] 1
+> 
+> #cluster 4
+> mean(cluster4$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 33274.51
+> sd(cluster4$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 20564.22
+> sum(cluster4$GENDER_M)/nrow(cluster4)
+[1] 0
+> sum(cluster4$PLACE_OF_SERVICE_OFF)/nrow(cluster4)
+[1] 1
+> sum(cluster4$MEDICARE_PAR_YES)/nrow(cluster4)
+[1] 1
+> sum(cluster4$ENTITY_I)/nrow(cluster4)
+[1] 1
+> 
+> #cluster 5
+> mean(cluster5$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 246.1328
+> sd(cluster5$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 2849.584
+> sum(cluster5$GENDER_M)/nrow(cluster5)
+[1] 0.6523438
+> sum(cluster5$PLACE_OF_SERVICE_OFF)/nrow(cluster5)
+[1] 0.0078125
+> sum(cluster5$MEDICARE_PAR_YES)/nrow(cluster5)
+[1] 0
+> sum(cluster5$ENTITY_I)/nrow(cluster5)
+[1] 0.9414062
+> 
+> #cluster 6
+> mean(cluster6$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 28863.12
+> sd(cluster6$AVERAGE_MEDICARE_STANDARD_AMT)
+[1] 16217.01
+> sum(cluster6$GENDER_M)/nrow(cluster6)
+[1] 0
+> sum(cluster6$PLACE_OF_SERVICE_OFF)/nrow(cluster6)
+[1] 0.7426901
+> sum(cluster6$MEDICARE_PAR_YES)/nrow(cluster6)
+[1] 1
+> sum(cluster6$ENTITY_I)/nrow(cluster6)
+[1] 0
+> 
+> nrow(cluster1)
+[1] 3548
+> nrow(cluster2)
+[1] 2761
+> nrow(cluster3)
+[1] 1027
+> nrow(cluster4)
+[1] 2041
+> nrow(cluster5)
+[1] 256
+> nrow(cluster6)
+[1] 342
+> 
+> head(datproc)
+      AVERAGE_MEDICARE_STANDARD_AMT ENTITY_I ENTITY_O GENDER_M GENDER_F
+60555                         47059        1        0        1        0
+97027                         32474        1        0        1        0
+17446                         52118        1        0        1        0
+47578                         56980        1        0        1        0
+72446                         22971        1        0        1        0
+87607                         58256        1        0        0        1
+      PLACE_OF_SERVICE_OFF PLACE_OF_SERVICE_FAC MEDICARE_PAR_YES
+60555                    1                    0                1
+97027                    1                    0                1
+17446                    1                    0                1
+47578                    1                    0                1
+72446                    0                    1                1
+87607                    1                    0                1
+      MEDICARE_PAR_NO fit.cluster
+60555               0           1
+97027               0           1
+17446               0           1
+47578               0           1
+72446               0           2
+87607               0           4
+> 
